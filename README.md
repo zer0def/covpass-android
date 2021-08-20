@@ -1,3 +1,60 @@
+# FOSS version
+
+NB: it's not really a "fork", just a few patches for F-Droid, no other
+divergence from upstream.
+
+## CovPass
+
+<a href="https://f-droid.org/packages/de.rki.covpass.app/"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="62" /></a>
+
+## CovPassCheck
+
+<a href="https://f-droid.org/packages/de.rki.covpass.checkapp/"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="62" /></a>
+
+## Upstream repo & issue tracker
+
+https://github.com/Digitaler-Impfnachweis/covpass-android
+
+## Matrix room
+
+https://matrix.to/#/#covpass-android-foss:matrix.org
+
+## Changes
+
+* Removed proprietary dependencies (update check using gplay).
+* Use `eu.ehn.dcc.certlogic:certlogic-kotlin:latest` from `mavenLocal()`.
+* Provide triple-t metadata for F-Droid.
+
+## Branches & Updates
+
+The FOSS version adds the `foss` branch: upstream's `main` + the
+changes mentioned above.
+
+When upstream releases a new version, we merge `main` (or the specific
+version tag) into `foss` and tag the new patched version as
+`foss-v-$VERSION` (matching upstream's `v-$VERSION`).
+
+## How to build certlogic for mavenLocal()
+
+```sh
+$ TAG=v0.7.7-kotlin   # as of v-1.82.0
+$ git clone -b $TAG https://github.com/ehn-dcc-development/dgc-business-rules.git
+$ cd dgc-business-rules/certlogic/certlogic-kotlin
+$ mvn clean install
+```
+
+## How to calculate the version code
+
+```sh
+$ echo $(($(git rev-list --count HEAD) + 80))
+```
+
+## How to set the version code before building
+
+```sh
+$ echo versionCode=$VERCODE >> generated.properties
+```
+
 # android-covpass-app
 
 This repo contains the CovPass app and commonly needed modules for Kotlin + Android.

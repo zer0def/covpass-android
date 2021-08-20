@@ -34,7 +34,6 @@ subprojects {
     def isAndroidProject = project.file('src/main/AndroidManifest.xml').exists()
     def isPlatformProject = project.name.endsWith('-bom')
     def isTestProject = project.name.endsWith('-test') || project.name == 'test'
-    def shouldPublish = isLibraryProject && project.name.startsWith("covpass-")
     def isThirdPartyProject = project.name == "covpass-dgc-certlogic"
     def kotlinExplicitApiMode = !isThirdPartyProject
     def compilerArgs = [
@@ -44,13 +43,7 @@ subprojects {
     apply from: "$rootDir/dependencies.gradle"
 
     repositories {
-        maven {
-            url 'https://maven.pkg.github.com/ehn-dcc-development/*'
-            credentials {
-                username repoConfig.githubUsername ?: System.getenv("GITHUB_PACKAGES_USERNAME")
-                password repoConfig.githubPassword ?: System.getenv("GITHUB_PACKAGES_PASSWORD")
-            }
-        }
+        mavenLocal()
     }
 
     if (!isPlatformProject) {
@@ -167,48 +160,5 @@ subprojects {
             apply from: "$rootDir/gradle/common/coverage.gradle"
             trackCoverage(enableTestCoverage: isOnCI, trackUI: false)
         }
-        if (!isLibraryProject && (System.getenv("PUBLISH_APPS") ?: "true") == "true") {
-            apply plugin: 'maven-publish'
-            afterEvaluate {
-                publishing {
-                    publications {
-                        release(MavenPublication) {
-                            from components.release_apk
-                        }
-                        debug(MavenPublication) {
-                            from components.debug_apk
-                            artifactId "${project.name}--debug"
-                        }
-                    }
-                    repositories {
-                        maven {
-                            url "https://nexus.open-insurance-platform.com/repository/covpass-releases"
-                            credentials {
-                                username repoConfig.nexusUsername
-                                password repoConfig.nexusPassword
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    if (shouldPublish) {
-        apply from: "$rootDir/gradle/common/publish.gradle"
-        publish(
-            url: System.getenv("PUBLICATION_URL") ?: nexus.egaPublic,
-            username: repoConfig.nexusUsername ?: System.getenv("PUBLICATION_USERNAME"),
-            password: repoConfig.nexusPassword ?: System.getenv("PUBLICATION_PASSWORD"),
-            repoUrl: "https://github.com/Digitaler-Impfnachweis/covpass-android",
-            pomAction: {
-                description = "The official CovPass(-Check) SDK"
-                url = "https://github.com/Digitaler-Impfnachweis/covpass-android"
-                licenses {
-                    license(LICENSE.APACHE2)
-                }
-            },
-            isPlatformProject: isPlatformProject,
-        )
     }
 }

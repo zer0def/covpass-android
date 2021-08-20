@@ -1,0 +1,27 @@
+The Robert Koch Institute (RKI), as the central institution of the Federal Government in the field of public health and as the national public health institute, releases the CovPassCheck app for the German Federal Government. The app is a quick and data-efficient way to check EU COVID Digital Certificates. Anyone using it can find out in seconds whether the person being checked has a valid certificate. No sensitive information or data is stored at any time.
+
+
+HOW THE APP WORKS
+
+Checking Corona vaccination status, recovery from Corona infection or a negative Corona test is the central function of the CovPassCheck app. Whenever users get the EU COVID Digital Certificate, only the information and data necessary for verification are displayed via QR code.
+
+The QR code as proof of full vaccination protection or recovery provides information about the status of the certificate. For clear identification, the name and date of birth are also displayed during a check. In addition, the QR code as proof of a negative test result still shows the time of testing.
+
+The QR code can be scanned with the CovPassCheck app. Users of the app can check several QR codes in succession with just one click. This does not necessarily require an Internet connection.
+
+The data of the checked person can only be viewed, but not saved.
+
+
+THIS IS HOW DATA REMAINS SECURE
+
+No sensitive data is stored during the check in accordance with DSGVO.
+
+* No registration: no registration with an e-mail address is necessary.
+* No data storage: the data remains on the smartphone of the person checked.
+* Data sparseness: After the QR code has been checked, only the status of the certificate, the name and the date of birth are displayed.
+* Cryptographic security: The QR code is secured with a signature that prevents forgery.
+
+
+PRIVACY POLICY
+
+https://www.digitaler-impfnachweis-app.de/webviews/verification-app/privacy/

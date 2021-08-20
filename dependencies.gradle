@@ -191,12 +191,8 @@ dependencies {
         }
 
         certLogic = {
-            api "eu.ehn.dcc.certlogic:certlogic-kotlin:v0.11.2-kotlin"
+            api "eu.ehn.dcc.certlogic:certlogic-kotlin:latest"
             api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0"
-        }
-
-        inAppUpdate = {
-            api "com.google.android.play:app-update-ktx:2.1.0"
         }
 
         room = {

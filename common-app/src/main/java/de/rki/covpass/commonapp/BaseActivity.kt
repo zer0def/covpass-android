@@ -11,8 +11,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.annotation.LayoutRes
-import com.google.android.play.core.appupdate.AppUpdateManager
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.ibm.health.common.android.utils.BaseHookedActivity
 import com.ibm.health.common.android.utils.isDebuggable
 import com.ibm.health.common.android.utils.setupForAccessibility
@@ -22,7 +20,6 @@ import com.ibm.health.common.navigation.android.NavigatorOwner
 import de.rki.covpass.commonapp.dependencies.commonDeps
 import de.rki.covpass.commonapp.dialog.DialogAction
 import de.rki.covpass.commonapp.dialog.DialogListener
-import de.rki.covpass.commonapp.utils.startLookingForUpdate
 
 /** Common base activity with some common functionality like error handling or loading behaviour. */
 public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
@@ -41,7 +38,6 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
         }
         super.onCreate(savedInstanceState)
         supportFragmentManager.setupForAccessibility()
-        lookForUpdates(AppUpdateManagerFactory.create(this))
     }
 
     override fun onBackPressed() {
@@ -55,10 +51,6 @@ public abstract class BaseActivity(@LayoutRes contentLayoutId: Int = 0) :
     }
 
     override fun setLoading(isLoading: Boolean) {}
-
-    private fun lookForUpdates(appUpdateManager: AppUpdateManager) {
-        startLookingForUpdate(appUpdateManager, navigator)
-    }
 
     override fun onDialogAction(tag: String, action: DialogAction) {
         if (tag == UPDATE_AVAILABLE_TAG && action == DialogAction.POSITIVE) {
